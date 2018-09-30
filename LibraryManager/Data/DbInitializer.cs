@@ -28,7 +28,7 @@ namespace LibraryManager.Data
                 var phil = new Author
                 {
                     Name = "Dr Phil",
-                    Books = new List<Book>
+                    Books = new List<Book>()
                      {
                          new Book{ Title="Alien Vs Predator"},
                          new Book{ Title="Anger Management"}
@@ -38,7 +38,7 @@ namespace LibraryManager.Data
                 var mat = new Author
                 {
                     Name = "Matt Graening",
-                    Books = new List<Book>
+                    Books = new List<Book>()
                      {
                          new Book{ Title="Bart's Life Guide"},
                          new Book{ Title="Homer Wisdom"}
