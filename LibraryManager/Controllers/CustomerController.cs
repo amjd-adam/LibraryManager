@@ -1,4 +1,5 @@
 ﻿using LibraryManager.Data.Interfaces;
+using LibraryManager.Data.Model;
 using LibraryManager.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,6 +20,7 @@ namespace LibraryManager.Controllers
             _bookRepository = bookRepository;
         }
 
+        [Route("Customer")]
         public IActionResult List()
         {
             var customerVM = new List<CustomerViewModel>();
@@ -38,6 +40,39 @@ namespace LibraryManager.Controllers
                 customerVM = x.ToList();
                 return View(customerVM);
             }
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var customer = _customerRepository.GetById(id);
+            _customerRepository.Delete(customer);
+            return RedirectToAction("List");
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        public IActionResult Create(Customer customer)
+        {
+            _customerRepository.Create(customer);
+            return RedirectToAction("List");
+        }
+
+        public IActionResult Update(int id)
+        {
+            var customer = _customerRepository.GetById(id);
+            return View(customer);
+        }
+
+        [HttpPost]
+        public IActionResult Update(Customer customer)
+        {
+            _customerRepository.Update(customer);
+            return RedirectToAction("List");
+              
         }
     }
 }
