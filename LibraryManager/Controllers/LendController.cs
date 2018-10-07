@@ -43,8 +43,9 @@ namespace LibraryManager.Controllers
         [HttpPost]
         public IActionResult LendBook(LendViewModel lendVM)
         {
-            var book = lendVM.Book;
+            var book =_bookRepository.GetById(lendVM.Book.BookId);
             book.Borrower = _customerRepository.GetById(lendVM.Book.BorrowerId);
+            book.BorrowerId = lendVM.Book.BorrowerId;
             _bookRepository.Update(book);
             return RedirectToAction("List");
         }
