@@ -52,6 +52,11 @@ namespace LibraryManager.Controllers
         [HttpPost]
         public IActionResult Create(BookViewModel bookVM)
         {
+            if (!ModelState.IsValid)
+            {
+                bookVM.Authors = _authorRepository.GetAll();
+                return View(bookVM);
+            }
             _bookRepository.Create(bookVM.Book);
             return RedirectToAction("List");
         }
@@ -76,7 +81,12 @@ namespace LibraryManager.Controllers
         [HttpPost]
         public IActionResult Update(BookViewModel bookVM)
         {
-            _bookRepository.Update(bookVM.Book);
+            if (!ModelState.IsValid)
+            {
+                bookVM.Authors = _authorRepository.GetAll();
+                return View(bookVM);
+            }
+                _bookRepository.Update(bookVM.Book);
             return RedirectToAction("List");
         }
     }
